@@ -2,7 +2,6 @@ from django.db import models
 
 # Create your models here.
 
-
 class Verifiable(models.Model):
     """Every fact keeps where it came from and when it was last checked."""
     source_url = models.URLField(blank=True)
@@ -33,6 +32,11 @@ class School(Verifiable):
     website = models.URLField(blank=True)
     aid_group = models.CharField(max_length=32, choices=AidGroup.choices, blank=True)
     common_app_member = models.BooleanField(default=True)
+    admission_rate = models.FloatField(null=True, blank=True)
+    undergrad_size = models.PositiveIntegerField(null=True, blank=True)
+    sat_average = models.PositiveIntegerField(null=True, blank=True)
+    cost_of_attendance = models.PositiveIntegerField(null=True, blank=True)
+    scorecard_synced = models.DateTimeField(null=True, blank=True)
 
     class Meta:
         ordering = ["name"]
