@@ -43,3 +43,19 @@ class School(Verifiable):
 
     def __str__(self):
         return self.name
+
+class Program(Verifiable):
+    school = models.ForeignKey(School, on_delete=models.CASCADE, related_name="programs")
+    cip_code = models.CharField(max_length=10, help_text="e.g. 1107")
+    title = models.CharField(max_length=255)
+    direct_admit = models.BooleanField(
+        default=False,
+        help_text="Students must apply to this program when applying to the school",
+    )
+
+    class Meta:
+        ordering = ["school", "title"]
+        unique_together = [("school", "cip_code")]
+
+    def __str__(self):
+        return f"{self.title} ({self.school})"
